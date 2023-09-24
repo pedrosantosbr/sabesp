@@ -1,0 +1,167 @@
+<!-- templates/index.html -->
+
+{% extends "_base.html" %} {% block content %}
+<div class="mt-16">
+  <div class="py-4 flex justify-between items-end">
+    <h1 class="text-lg font-bold text-white">Unidades</h1>
+    <!-- <a href="{% url 'leituras:add' %}" class="button_primary"
+      >Add nova leitura</a
+    > -->
+  </div>
+  <div class="relative overflow-x-auto sm:rounded-lg">
+    <table
+      class="w-full shadow-dashboard bg-slate-800 text-sm text-left text-gray-500"
+    >
+      <thead class="text-xs text-gray-400 dark:text-gray-40">
+        <tr>
+          <th scope="col" class="px-6 py-3">#ID</th>
+          <th scope="col" class="px-6 py-3">Endereço</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if unidades %} {% for unidade in unidades %}
+        <tr class="border border-gray-800 bg-gray-900">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{unidade.id}}
+          </th>
+          <td class="px-6 py-4">{{unidade}}</td>
+        </tr>
+        {% endfor %} {% else %}
+
+        <tr class="border border-gray-800 bg-gray-900">
+          <td colspan="4">
+            <div class="flex w-full items-center py-10 justify-center">
+              <div class="block text-center">
+                <div class="mb-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-14 h-14 mx-auto"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+                    />
+                  </svg>
+                </div>
+
+                <div class="mb-8">
+                  <h4 class="text-lg text-slate-200 font-semibold">
+                    Nenhuma unidade registrada
+                  </h4>
+                  <p class="text-sm" style="font-size: 16px">
+                    Clique no botão abaixo e adicione uma nova leitura
+                  </p>
+                </div>
+                <!-- <div class="block">
+                  <a
+                    style="display: inline"
+                    href="{% url 'leituras:add' %}"
+                    class="button_primary"
+                    >Add nova leitura</a
+                  >
+                </div> -->
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+
+    <!-- <div class="pagination mt-2">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; primeiro</a>
+        <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div> -->
+
+    <nav aria-label="Page navigation example">
+      <ul class="inline-flex -space-x-px text-sm mt-2">
+        {% if page_obj.has_previous %}
+        <li>
+          <a
+            href="?page=1"
+            class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >&laquo; primeiro</a
+          >
+        </li>
+        <li>
+          <a
+            href="?page={{ page_obj.previous_page_number }}"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >anterior</a
+          >
+        </li>
+        {% endif %}
+
+        <!-- <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >1</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >2</a
+          >
+        </li> -->
+
+        {% for num in page_obj.paginator.page_range %} {% if page_obj.number == num %}
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-slate-700 border border-gray-300 hover:bg-slate-800 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >{{ num }}</a
+          >
+        </li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li>
+          <a
+            href="?page={{ num }}"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >{{ num }}</a
+          >
+        </li>
+        {% endif %}
+        {% endfor %} 
+        {% if page_obj.has_next %}
+        <a
+          href="?page={{ page_obj.next_page_number }}"
+          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >próximo</a
+        >
+        <a
+          href="?page={{ page_obj.paginator.num_pages }}"
+          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >último &raquo;</a
+        >
+        {% endif %}
+      </ul>
+    </nav>
+    <br /><br />
+  </div>
+</div>
+
+{% endblock content %}

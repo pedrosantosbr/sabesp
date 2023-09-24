@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "sabesp"
+version = "0.1.0"
+description = ""
+authors = ["Pedro <pedro357bm@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.3"
+black = "^23.7.0"
+django-compressor = "^4.4"
+djangorestframework = "^3.14.0"
+markdown = "^3.4.4"
+django-filter = "^23.2"
+djangorestframework-simplejwt = "^5.3.0"
+openpyxl = "^3.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

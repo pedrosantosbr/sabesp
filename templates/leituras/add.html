@@ -1,0 +1,14 @@
+<!-- templates/index.html -->
+
+{% extends "_base.html" %} {% block content %}
+<div class="relative overflow-x-auto">
+  <div class="py-4 flex justify-between items-end">
+    <h1 class="text-lg font-bold text-white">Nova leitura</h1>
+  </div>
+  <form method="post" enctype="multipart/form-data" class="">
+    {% csrf_token %} {{form.as_p}}
+    <br /><br />
+    <button class="button_primary">Upload</button>
+  </form>
+</div>
+{% endblock content %}
