@@ -19,6 +19,7 @@ class Relatorio(models.Model):
 
     class Meta:
         verbose_name_plural = "Relatórios"
+        ordering = ["created_at"]
 
     # XXX - internal
     created_at = models.DateTimeField(auto_now_add=True)
