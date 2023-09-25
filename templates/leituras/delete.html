@@ -5,13 +5,13 @@
   {% include "header.html" %}
   <div class="relative overflow-x-auto">
     <div class="py-4 flex justify-between items-end">
-      <h1 class="text-lg font-bold text-white">Nova leitura</h1>
+      <h1 class="text-lg font-bold text-white">Deletar relatório de leituras?</h1>
     </div>
+
     <form method="post" enctype="multipart/form-data" class="">
       {% csrf_token %}
-      <input type="file" name="file" id="file" class="inputfile" />
       <br /><br />
-      <button class="button_primary">Upload</button>
+      <button class="button_danger">Delete</button>
     </form>
   </div>
 </div>

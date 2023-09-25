@@ -1,5 +1,4 @@
 from django.contrib import admin
-from leituras.models import Leitura, Folha
+from leituras.models import Leitura, Folha, Relatorio, RelatorioEvento
 
-admin.site.register(Leitura)
-admin.site.register(Folha)
+admin.site.register([Leitura, Folha, Relatorio, RelatorioEvento])

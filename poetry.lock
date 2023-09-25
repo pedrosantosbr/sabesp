@@ -148,6 +148,49 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-pgconnection"
+version = "1.0.3"
+description = "Route postgres connections and hook into cursor execution"
+optional = false
+python-versions = ">=3.7.0,<4"
+files = [
+    {file = "django-pgconnection-1.0.3.tar.gz", hash = "sha256:395d82fc6ca612b8575373c317d6f1a47974dadda965e043d2704609ded12c0a"},
+    {file = "django_pgconnection-1.0.3-py3-none-any.whl", hash = "sha256:7d2dadeb8b7bdf8ac94f2a5c553f6d96c446331c1f3e930dd6fc4f194bbec90a"},
+]
+
+[package.dependencies]
+django = ">=2"
+
+[[package]]
+name = "django-pghistory"
+version = "2.8.0"
+description = "History tracking for Django and Postgres"
+optional = false
+python-versions = ">=3.7.0,<4"
+files = [
+    {file = "django_pghistory-2.8.0-py3-none-any.whl", hash = "sha256:1337c897c0ee67c953e082b1f19b5af4a2b2bf9b9db8852c552851529960cfd3"},
+    {file = "django_pghistory-2.8.0.tar.gz", hash = "sha256:80a2eb34f8eeefeb5c5eff5dd57a558a72486aac74ca5a73ed7ac1f89e87678b"},
+]
+
+[package.dependencies]
+django = ">=2"
+django-pgtrigger = ">=4.7.0"
+
+[[package]]
+name = "django-pgtrigger"
+version = "4.7.0"
+description = "Postgres trigger support integrated with Django models."
+optional = false
+python-versions = ">=3.7.0,<4"
+files = [
+    {file = "django_pgtrigger-4.7.0-py3-none-any.whl", hash = "sha256:978e998f5c7bdfaf3edbb01c2075be329ce679bd87a89c5bfdf95405905885bd"},
+    {file = "django_pgtrigger-4.7.0.tar.gz", hash = "sha256:20a4139cccb17b75d065fbfd2cc8f47e3696379d7be4139ef6a67c8d14897a8d"},
+]
+
+[package.dependencies]
+django = ">=2"
+
+[[package]]
 name = "djangorestframework"
 version = "3.14.0"
 description = "Web APIs for Django, made easy."
@@ -275,6 +318,26 @@ docs = ["furo (>=2023.5.20)", "proselint (>=0.13)", "sphinx (>=7.0.1)", "sphinx-
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.3.1)", "pytest-cov (>=4.1)", "pytest-mock (>=3.10)"]
 
 [[package]]
+name = "psycopg2"
+version = "2.9.7"
+description = "psycopg2 - Python-PostgreSQL Database Adapter"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "psycopg2-2.9.7-cp310-cp310-win32.whl", hash = "sha256:1a6a2d609bce44f78af4556bea0c62a5e7f05c23e5ea9c599e07678995609084"},
+    {file = "psycopg2-2.9.7-cp310-cp310-win_amd64.whl", hash = "sha256:b22ed9c66da2589a664e0f1ca2465c29b75aaab36fa209d4fb916025fb9119e5"},
+    {file = "psycopg2-2.9.7-cp311-cp311-win32.whl", hash = "sha256:44d93a0109dfdf22fe399b419bcd7fa589d86895d3931b01fb321d74dadc68f1"},
+    {file = "psycopg2-2.9.7-cp311-cp311-win_amd64.whl", hash = "sha256:91e81a8333a0037babfc9fe6d11e997a9d4dac0f38c43074886b0d9dead94fe9"},
+    {file = "psycopg2-2.9.7-cp37-cp37m-win32.whl", hash = "sha256:d1210fcf99aae6f728812d1d2240afc1dc44b9e6cba526a06fb8134f969957c2"},
+    {file = "psycopg2-2.9.7-cp37-cp37m-win_amd64.whl", hash = "sha256:e9b04cbef584310a1ac0f0d55bb623ca3244c87c51187645432e342de9ae81a8"},
+    {file = "psycopg2-2.9.7-cp38-cp38-win32.whl", hash = "sha256:d5c5297e2fbc8068d4255f1e606bfc9291f06f91ec31b2a0d4c536210ac5c0a2"},
+    {file = "psycopg2-2.9.7-cp38-cp38-win_amd64.whl", hash = "sha256:8275abf628c6dc7ec834ea63f6f3846bf33518907a2b9b693d41fd063767a866"},
+    {file = "psycopg2-2.9.7-cp39-cp39-win32.whl", hash = "sha256:c7949770cafbd2f12cecc97dea410c514368908a103acf519f2a346134caa4d5"},
+    {file = "psycopg2-2.9.7-cp39-cp39-win_amd64.whl", hash = "sha256:b6bd7d9d3a7a63faae6edf365f0ed0e9b0a1aaf1da3ca146e6b043fb3eb5d723"},
+    {file = "psycopg2-2.9.7.tar.gz", hash = "sha256:f00cc35bd7119f1fed17b85bd1007855194dde2cbd8de01ab8ebb17487440ad8"},
+]
+
+[[package]]
 name = "pyjwt"
 version = "2.8.0"
 description = "JSON Web Token implementation in Python"
@@ -396,4 +459,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b4c78479c1282a1b222fd450e1e0fda3631f2b6147cb81733e90163f36db61f7"
+content-hash = "720b16cca3288578246d9d7f83d7e3c2cc536a72a258573f8a34dfcc94b9e909"

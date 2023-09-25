@@ -1,0 +1,81 @@
+<li class="mb-10 ml-6">
+  <span
+    class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-green-500"
+  >
+    {% comment %}
+    <img
+      class="rounded-full shadow-lg"
+      src="/docs/images/people/profile-picture-3.jpg"
+      alt="Bonnie image"
+    />
+    {% endcomment %}
+  </span>
+  <div
+    class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:bg-gray-700 dark:border-gray-600"
+  >
+    
+    <div class="flex items-center sm:order-last sm:mb-0">
+      {% comment %} actions {% endcomment %}
+      <a href="#" class="text-sky-600 dark:text-sky-500"
+        ><span
+          class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-500 dark:text-gray-100"
+        >
+          editar
+        </span>
+      </a>
+      <a href="#" class="text-sky-600 dark:text-sky-500"
+        ><span
+          class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-500 dark:text-gray-100"
+        >
+          exlcuir
+        </span>
+      </a>
+    </div>
+    <div
+      class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-300"
+    >
+      <a
+        href="{% url 'leituras:edit' relatorio.id %}"
+        class="mx-2 font-semibold text-sky-600 dark:text-sky-500 hover:underline"
+        ><span
+          class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300"
+        >
+          {{ relatorio.id }}
+        </span>
+      </a>
+     
+    </div>
+  </div>
+  {% comment %} children {% endcomment %}
+  {% if relatorio.eventos|length > 0 %}
+  <div class="inner mt-4">
+    <ol class="relative border-l border-gray-200 dark:border-gray-700">
+      {% comment %} event 2 {% endcomment %}
+     
+      {% comment %} event 3 {% endcomment %}
+      {% for evento in relatorio.eventos %}
+      <li class="ml-6 mb-4 italic">
+        <span
+          class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-amber-400"
+        >
+        </span>
+        <div
+          class="items-center justify-between px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:bg-gray-800 dark:border-gray-700"
+        >
+          <time
+            class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0"
+            >{{ evento.event_date }}</time
+          >
+          <div class="text-sm font-normal text-gray-500 lex dark:text-gray-300">
+            Relatório
+            <span class="text-white font-bold">{{ evento.event_type }}</span>
+            por: 
+            {{ evento.funcionario }}
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% endif %}
+</li>

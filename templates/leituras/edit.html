@@ -4,9 +4,11 @@
 <div class="container mx-auto">
   {% include "header.html" %}
   <div class="relative overflow-x-auto">
-    <div class="py-4 flex justify-between items-end">
-      <h1 class="text-lg font-bold text-white">Nova leitura</h1>
-    </div>
+    <div class="py-4 flex flex-col justify-between items-start">
+      <a href="{% url 'dashboard' %}" class="hover:underline">Voltar</a>
+      <h1 class="text-lg font-bold text-white">Editar leituras</h1>
+      <p class="text-sm text-slate-400">Relatorio id: {{ relatorio.id }}</p>
+      </div>
     <form method="post" enctype="multipart/form-data" class="">
       {% csrf_token %}
       <input type="file" name="file" id="file" class="inputfile" />

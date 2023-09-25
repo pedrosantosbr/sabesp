@@ -1,7 +1,8 @@
-from django.db import models
 import os
+import uuid
+from django.db import models
 
-from unidades.models import Unidade
+from django.contrib.auth.models import User
 
 
 # XXX - internal
@@ -13,49 +14,38 @@ def sheet_upload_to(instance, filename):
     return os.path.join("uploads/leituras", str(sheet_id), filename)
 
 
-# class Leitura(models.Model):
-#     class CompetenciaTypes(models.TextChoices):
-#         JAN = "JAN", "Janeiro"
-#         FEV = "FEV", "Fevereiro"
-#         MAR = "MAR", "Março"
-#         ABR = "ABR", "Abril"
-#         MAI = "MAI", "Maio"
-#         JUN = "JUN", "Junho"
-#         JUL = "JUL", "Julho"
-#         AGO = "AGO", "Agosto"
-#         SET = "SET", "Setembro"
-#         OUT = "OUT", "Outubro"
-#         NOV = "NOV", "Novembro"
-#         DEZ = "DEZ", "Dezembro"
-
-#     # XXX - internal
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-#     def folhas(self):
-#         return self.sheet_set.first(order_by="-created_at")
-
-#     def __str__(self):
-#         return self.name
-
-
 class Relatorio(models.Model):
-    id = models.UUIDField(primary_key=True, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
 
     class Meta:
         verbose_name_plural = "Relatórios"
 
     # XXX - internal
     created_at = models.DateTimeField(auto_now_add=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.created_at.strftime("%d/%m/%Y %H:%M")
 
 
-class Leitura(models.Model):
-    relatorio = models.ForeignKey(Relatorio, on_delete=models.CASCADE)
+class Folha(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    relatorio = models.ForeignKey(
+        Relatorio, on_delete=models.CASCADE, related_name="folhas"
+    )
+    arquivo = models.FileField(upload_to="uploads/%Y/%m/%d/")
 
-    unidade = models.ForeignKey(Unidade, on_delete=models.CASCADE)
+    # XXX - internal
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.arquivo.name.split("/")[-1]
+
+
+# @pghistory.track(pghistory.Snapshot())
+class Leitura(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    folha = models.ForeignKey(Folha, on_delete=models.CASCADE)
 
     rgi_principal = models.CharField(max_length=100)
     rgi_autonoma = models.CharField(max_length=100)
@@ -67,14 +57,22 @@ class Leitura(models.Model):
     hidrometro = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.unidade} - {self.data}"
+        return f"{self.id} - {self.rgi_principal} - {self.rgi_autonoma} - {self.data_leitura}"
 
 
-class Folha(models.Model):
-    arquivo = models.FileField(upload_to="uploads/%Y/%m/%d/")
+class RelatorioEvento(models.Model):
+    class EventTypes(models.TextChoices):
+        CRIADO = "criado"
+        ATUALIZADO = "atualizado"
+        DELETADO = "deletado"
 
-    # XXX - internal
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.arquivo.name.split("/")[-1]
+    relatorio = models.ForeignKey(
+        Relatorio, on_delete=models.CASCADE, related_name="eventos"
+    )
+    funcionario = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="funcionarios"
+    )
+    event_date = models.DateTimeField(auto_now_add=True)
+    event_type = models.CharField(
+        max_length=100, choices=EventTypes.choices, default=EventTypes.CRIADO
+    )
