@@ -2,15 +2,24 @@ from django.shortcuts import render
 from leituras.models import Folha, Relatorio
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 @login_required(login_url=settings.LOGIN_URL)
 def index(request):
+    limit = request.GET.get("limit", 10)
+    page_number = request.GET.get("page", 1)
+
     relatorios = Relatorio.objects.prefetch_related("eventos").all()
 
+    paginator = Paginator(relatorios, limit)
+
+    page_obj = paginator.get_page(page_number)
+
+    print(paginator)
     data = []
 
-    for relatorio in relatorios:
+    for relatorio in page_obj:
         data.append(
             {
                 "id": relatorio.id,
@@ -30,4 +39,8 @@ def index(request):
             }
         )
 
-    return render(request, "dashboard/index.html", {"relatorios": data})
+    return render(
+        request,
+        "dashboard/index.html",
+        {"relatorios": data, "page_obj": page_obj, "limit": limit},
+    )
