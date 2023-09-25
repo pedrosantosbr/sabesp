@@ -5,10 +5,13 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.utils import timezone
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from openpyxl import load_workbook
 
 
+@login_required(login_url=settings.LOGIN_URL)
 @transaction.atomic
 def add_leitura(request):
     if request.method == "POST":
@@ -43,6 +46,7 @@ def add_leitura(request):
     return render(request, "leituras/add.html", {"form": form})
 
 
+@login_required(login_url=settings.LOGIN_URL)
 @transaction.atomic
 def edit_leitura(request, id):
     relatorio = get_object_or_404(Relatorio, pk=id)
@@ -84,6 +88,7 @@ def edit_leitura(request, id):
     return render(request, "leituras/edit.html", {"form": form, "relatorio": relatorio})
 
 
+@login_required(login_url=settings.LOGIN_URL)
 @transaction.atomic
 def delete_relatorio(request, id):
     relatorio = get_object_or_404(Relatorio, pk=id)
