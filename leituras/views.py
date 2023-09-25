@@ -4,6 +4,7 @@ from leituras.models import Folha, Leitura, Relatorio, RelatorioEvento
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.utils import timezone
 
 from openpyxl import load_workbook
 
@@ -83,10 +84,15 @@ def edit_leitura(request, id):
     return render(request, "leituras/edit.html", {"form": form, "relatorio": relatorio})
 
 
+@transaction.atomic
 def delete_relatorio(request, id):
     relatorio = get_object_or_404(Relatorio, pk=id)
     if request.method == "POST":
-        relatorio.delete()
+        relatorio.folhas.all().delete()
+        relatorio.deleted_at = timezone.now()
+        relatorio.save()
+
         messages.success(request, "Leitura deletada com sucesso!")
+
         return redirect("dashboard")
     return render(request, "leituras/delete.html", {"relatorio": relatorio})

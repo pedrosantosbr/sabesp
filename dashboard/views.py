@@ -15,6 +15,9 @@ def index(request):
             {
                 "id": relatorio.id,
                 "created_at": relatorio.created_at.strftime("%d/%m/%Y %H:%M"),
+                "deleted_at": relatorio.deleted_at.strftime("%d/%m/%Y %H:%M")
+                if relatorio.deleted_at
+                else None,
                 "eventos": [
                     {
                         "id": evento.id,

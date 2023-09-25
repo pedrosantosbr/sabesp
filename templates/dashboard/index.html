@@ -10,7 +10,7 @@
         >Add nova leitura</a
       >
     </div>
-    <ol class="relative border-l border-gray-200 dark:border-gray-700">
+    <ol class="relative border-l border-gray-200 dark:border-gray-700 mx-3">
       {% for relatorio in relatorios %}
         {% include "leituras/components/leitura-item.html" with relatorio=relatorio %}
       {% endfor %}
