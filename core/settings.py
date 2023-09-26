@@ -42,12 +42,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "compressor",
     "rest_framework",
-    "leituras",
-    "unidades",
-    "dashboard",
+    "rest_framework_simplejwt",
+    "django_filters",
     "pghistory",
     "pgtrigger",
     "pgconnection",
+    # apps
+    "leituras",
+    "unidades",
+    "dashboard",
 ]
 
 MIDDLEWARE = [
@@ -164,6 +167,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         # other authentication classes
     ],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
 }
 
 SIMPLE_JWT = {
