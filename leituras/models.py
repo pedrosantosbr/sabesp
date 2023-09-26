@@ -45,6 +45,9 @@ class Folha(models.Model):
 
 # @pghistory.track(pghistory.Snapshot())
 class Leitura(models.Model):
+    class Meta:
+        ordering = ["data_leitura"]
+
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     folha = models.ForeignKey(Folha, on_delete=models.CASCADE)
 
