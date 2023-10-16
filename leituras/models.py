@@ -53,10 +53,11 @@ class Leitura(models.Model):
 
     rgi_principal = models.CharField(max_length=100)
     rgi_autonoma = models.CharField(max_length=100)
-    status_valvula = models.CharField(max_length=100)
-    data_leitura = models.DateTimeField()
+    status_valvula = models.CharField(max_length=100, null=True, blank=True)
+    data_leitura = models.DateField()
+    hora_leitura = models.TimeField(default="00:00:00")
     leitura = models.IntegerField()
-    fria_quente = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=100)
     imovel = models.CharField(max_length=100)
     hidrometro = models.CharField(max_length=100)
 

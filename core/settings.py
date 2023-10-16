@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-y(0_1@bano_)93vqgjngj3znmu))l*q38vu$)634k4yp179yh6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["django-env.eba-mwdepduy.us-west-2.elasticbeanstalk.com"]
 
 
 # Application definition
@@ -44,9 +44,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
-    "pghistory",
-    "pgtrigger",
-    "pgconnection",
     # apps
     "leituras",
     "unidades",

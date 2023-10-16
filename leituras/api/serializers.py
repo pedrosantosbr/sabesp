@@ -6,6 +6,7 @@ class LeituraSerializer(serializers.Serializer):
     rgi_autonoma = serializers.CharField(max_length=20)
     status_valvula = serializers.CharField(max_length=20)
     data_leitura = serializers.DateField()
+    hora_leitura = serializers.TimeField()
     leitura = serializers.IntegerField()
     fria_quente = serializers.CharField(max_length=20)
     imovel = serializers.CharField(max_length=20)
@@ -18,7 +19,7 @@ class LeituraSerializer(serializers.Serializer):
             "statusValvula": instance.status_valvula,
             "dataLeitura": instance.data_leitura,
             "leitura": instance.leitura,
-            "frioQuente": instance.fria_quente,
+            "frioQuente": instance.tipo,
             "imovel": instance.imovel,
             "hidrometro": instance.hidrometro,
         }

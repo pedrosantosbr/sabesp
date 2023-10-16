@@ -22,17 +22,18 @@ def add_leitura(request):
             wb = load_workbook(request.FILES["file"])
             sheet = wb.active
 
-            for row in sheet.iter_rows():
+            for i in range(5, sheet.max_row + 1):
+                row = sheet[i]
                 Leitura.objects.create(
                     folha=fl,
                     rgi_principal=row[0].value,
-                    rgi_autonoma=row[1].value,
-                    status_valvula="Aberta",
+                    rgi_autonoma=row[0].value,
+                    status_valvula="",
                     data_leitura=row[5].value,
                     leitura=row[4].value,
-                    fria_quente=row[3].value.split("-")[1],
+                    tipo=row[3].value.split("-")[1],
                     imovel=row[2].value,
-                    hidrometro="AZ000000",
+                    hidrometro=row[1].value,
                 )
 
             RelatorioEvento.objects.create(
