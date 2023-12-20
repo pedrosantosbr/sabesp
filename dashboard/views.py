@@ -23,6 +23,7 @@ def index(request):
         data.append(
             {
                 "id": relatorio.id,
+                "condominio": relatorio.condominio.nome,
                 "created_at": relatorio.created_at.strftime("%d/%m/%Y %H:%M"),
                 "deleted_at": relatorio.deleted_at.strftime("%d/%m/%Y %H:%M")
                 if relatorio.deleted_at

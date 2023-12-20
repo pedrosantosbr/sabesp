@@ -14,8 +14,15 @@ def sheet_upload_to(instance, filename):
     return os.path.join("uploads/leituras", str(sheet_id), filename)
 
 
+class Condominio(models.Model):
+    nome = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nome
+
+
 class Relatorio(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    condominio = models.ForeignKey(Condominio, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Relatórios"

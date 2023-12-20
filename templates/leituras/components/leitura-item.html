@@ -1,7 +1,7 @@
 {% if not relatorio.deleted_at %}
 <li class="mb-10 ml-6">
   <span
-    class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-green-500"
+    class="absolute flex items-center justify-center w-2 h-2 bg-blue-100 rounded-full -left-1 ring-8 ring-white dark:ring-gray-900 dark:bg-gray-600"
   >
     {% comment %}
     <img
@@ -41,7 +41,7 @@
         ><span
           class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300"
         >
-          {{ relatorio.id }}
+          {{ relatorio.condominio }} - v{{ relatorio.id }}
         </span>
       </a>
      
@@ -57,7 +57,7 @@
       {% for evento in relatorio.eventos %}
       <li class="ml-6 mb-4 italic">
         <span
-          class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-amber-400"
+          class="absolute flex items-center justify-center w-2 h-2 bg-blue-100 rounded-full -left-1 ring-8 ring-white dark:ring-gray-900 dark:bg-gray-600"
         >
         </span>
         <div

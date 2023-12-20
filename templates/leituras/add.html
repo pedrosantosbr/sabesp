@@ -8,7 +8,9 @@
     </div>
     <form method="post" enctype="multipart/form-data" class="">
       {% csrf_token %}
-      <input type="file" name="file" id="file" class="inputfile" />
+      {% comment %} render form name {% endcomment %}
+      {{ form.as_p }}
+      {% comment %} <input type="file" name="file" id="file" class="inputfile" /> {% endcomment %}
       <br /><br />
       <button class="button_primary">Upload</button>
     </form>

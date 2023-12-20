@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from leituras.forms import UploadLeituraForm
-from leituras.models import Folha, Leitura, Relatorio, RelatorioEvento
+from leituras.models import Folha, Leitura, Relatorio, RelatorioEvento, Condominio
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
@@ -17,10 +17,14 @@ def add_leitura(request):
     if request.method == "POST":
         form = UploadLeituraForm(request.POST, request.FILES)
         if form.is_valid():
-            rl = Relatorio.objects.create()
-            fl = Folha.objects.create(relatorio=rl, arquivo=request.FILES["file"])
             wb = load_workbook(request.FILES["file"])
             sheet = wb.active
+
+            cm, _ = Condominio.objects.get_or_create(
+                nome=form.cleaned_data["condominio_nome"]
+            )
+            rl = Relatorio.objects.create(condominio=cm)
+            fl = Folha.objects.create(relatorio=rl, arquivo=request.FILES["file"])
 
             for i in range(5, sheet.max_row + 1):
                 row = sheet[i]
