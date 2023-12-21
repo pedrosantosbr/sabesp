@@ -31,7 +31,7 @@ def index(request):
                 "eventos": [
                     {
                         "id": evento.id,
-                        "event_date": evento.event_date.strftime("%d/%m/%Y %H:%M"),
+                        "event_date": evento.event_date,
                         "funcionario": evento.funcionario.username,
                         "event_type": evento.event_type,
                     }
