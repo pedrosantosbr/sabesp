@@ -19,6 +19,7 @@ django-pghistory = "^2.8.0"
 psycopg2 = "^2.9.7"
 django-pgconnection = "^1.0.3"
 django-pgtrigger = "^4.7.0"
+psycopg2-binary = "^2.9.9"
 
 
 [build-system]
