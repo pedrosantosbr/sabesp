@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 
 @login_required(login_url=settings.LOGIN_URL)
 def index(request):
+    user = request.user
     limit = request.GET.get("limit", 10)
     page_number = request.GET.get("page", 1)
 
@@ -43,5 +44,5 @@ def index(request):
     return render(
         request,
         "dashboard/index.html",
-        {"relatorios": data, "page_obj": page_obj, "limit": limit},
+        {"user": user, "relatorios": data, "page_obj": page_obj, "limit": limit},
     )

@@ -31,6 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "django-env.eba-kpypfwz5.us-west-2.elasticbeanstalk.com",
     "localhost",
+    "127.0.0.1",
 ]
 
 
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     "leituras",
     "unidades",
     "dashboard",
+    "oauth",
 ]
 
 MIDDLEWARE = [
@@ -86,14 +88,25 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# sqlite engine
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "proacqua",
+            "USER": "postgres",
+            "PASSWORD": "93vqgjngj3znmu",
+            "HOST": "proacqua.cgznr4uo3dxp.us-west-2.rds.amazonaws.com",
+            "PORT": "5432",
+        }
     }
-}
+else:
+    # sqlite engine
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
@@ -181,3 +194,10 @@ APPEND_SLASH = False
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/accounts/login/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+
+SABESP_CLIENT_ID = "ci_634k4yp179yh6"
+SABESP_CLIENT_SECRET = "cs_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+
+
+# 93vqgjngj3znmu

@@ -4,9 +4,12 @@ from django.urls import path, include
 from django.contrib.staticfiles.urls import static
 
 
-from rest_framework_simplejwt.views import (
+# from rest_framework_simplejwt.views import (
+#     TokenRefreshView,
+# )
+
+from oauth.views import (
     TokenObtainPairView,
-    TokenRefreshView,
 )
 
 urlpatterns = [
@@ -33,5 +36,5 @@ urlpatterns = [
     path("api/v1/leituras", include("leituras.api.urls")),
     # jwt
     path("api/v1/token", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/v1/token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
+    # path("api/v1/token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
