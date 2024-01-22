@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-y(0_1@bano_)93vqgjngj3znmu))l*q38vu$)634k4yp179yh6
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "django-env.eba-kpypfwz5.us-west-2.elasticbeanstalk.com",
+    "143.198.59.127",
     "localhost",
     "127.0.0.1",
 ]
