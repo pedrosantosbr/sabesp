@@ -88,25 +88,24 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-if True:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "proacqua",
-            "USER": "postgres",
-            "PASSWORD": "93vqgjngj3znmu",
-            "HOST": "proacqua.cgznr4uo3dxp.us-west-2.rds.amazonaws.com",
-            "PORT": "5432",
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "defaultdb",
+        "USER": "doadmin",
+        "PASSWORD": "AVNS_FuDcir-UzWteVH6njVV",
+        "HOST": "db-postgresql-sfo3-40692-do-user-8772869-0.c.db.ondigitalocean.com",
+        "PORT": "25060",
+        "OPTIONS": {"sslmode": "require"},
     }
-else:
-    # sqlite engine
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
+# sqlite engine
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
