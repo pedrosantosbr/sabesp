@@ -140,15 +140,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-STATIC_URL = "static/"
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",
-#     "/var/www/static/",
-# ]
+STATICFILES_DIRS = [
+    "static/",
+    BASE_DIR / "static",
+    "/var/www/static/",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -201,3 +197,10 @@ SABESP_CLIENT_SECRET = "cs_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
 
 
 # 93vqgjngj3znmu
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
