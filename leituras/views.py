@@ -20,9 +20,13 @@ def add_leitura(request):
             wb = load_workbook(request.FILES["file"])
             sheet = wb.active
 
-            cm, _ = Condominio.objects.get_or_create(
-                nome=form.cleaned_data["condominio_nome"]
-            )
+            condominio_nome = form.cleaned_data["condominio_nome"]
+            if condominio_nome and condominio_nome != "":
+                condominio_nome = condominio_nome.lower().strip()
+            else:
+                raise Exception("Nome do condomínio não pode ser vazio")
+
+            cm, _ = Condominio.objects.get_or_create(nome=condominio_nome)
             rl = Relatorio.objects.create(condominio=cm)
             fl = Folha.objects.create(relatorio=rl, arquivo=request.FILES["file"])
 

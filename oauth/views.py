@@ -12,6 +12,27 @@ from django.conf import settings
 from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.settings import api_settings
+from rest_framework_simplejwt.serializers import TokenObtainSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from types import Dict, Any
+from django.contrib.auth.models import update_last_login
+
+
+class TokenOauth2Serializer(TokenObtainSerializer):
+    token_class = RefreshToken
+
+    def validate(self, attrs: Dict[str, Any]) -> Dict[str, str]:
+        data = super().validate(attrs)
+
+        refresh = self.get_token(self.user)
+
+        data["refresh"] = str(refresh)
+        data["access"] = str(refresh.access_token)
+
+        if api_settings.UPDATE_LAST_LOGIN:
+            update_last_login(None, self.user)
+
+        return data
 
 
 class TokenViewBase(generics.GenericAPIView):
@@ -37,15 +58,15 @@ class TokenViewBase(generics.GenericAPIView):
             raise ImportError(msg)
 
     def get_authenticate_header(self, request: Request) -> str:
-        print("get_authenticate_header")
         return '{} realm="{}"'.format(
             AUTH_HEADER_TYPES[0],
             self.www_authenticate_realm,
         )
 
     def post(self, request: Request, *args, **kwargs) -> Response:
-        client_id = request.META.get("HTTP_CLIENTID", None)
-        client_secret = request.META.get("HTTP_CLIENTSECRET", None)
+        print(request.data)
+        client_id = request.data.get("client_id", None)
+        client_secret = request.data.get("client_secret", None)
 
         if client_id is None or client_secret is None:
             return Response(
@@ -54,8 +75,6 @@ class TokenViewBase(generics.GenericAPIView):
             )
 
         authorized_clients = {settings.SABESP_CLIENT_ID: settings.SABESP_CLIENT_SECRET}
-
-        print(authorized_clients)
 
         if client_id in authorized_clients:
             if client_secret == authorized_clients[client_id]:

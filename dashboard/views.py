@@ -11,7 +11,9 @@ def index(request):
     limit = request.GET.get("limit", 10)
     page_number = request.GET.get("page", 1)
 
-    relatorios = Relatorio.objects.prefetch_related("eventos").all()
+    relatorios = (
+        Relatorio.objects.prefetch_related("eventos").prefetch_related("folhas").all()
+    )
 
     paginator = Paginator(relatorios, limit)
 
@@ -25,6 +27,7 @@ def index(request):
             {
                 "id": relatorio.id,
                 "condominio": relatorio.condominio.nome,
+                "folha": relatorio.folhas.first().arquivo.name.split("/")[-1],
                 "created_at": relatorio.created_at.strftime("%d/%m/%Y %H:%M"),
                 "deleted_at": relatorio.deleted_at.strftime("%d/%m/%Y %H:%M")
                 if relatorio.deleted_at
