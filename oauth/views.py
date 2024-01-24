@@ -14,14 +14,13 @@ from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.serializers import TokenObtainSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-from types import Dict, Any
 from django.contrib.auth.models import update_last_login
 
 
 class TokenOauth2Serializer(TokenObtainSerializer):
     token_class = RefreshToken
 
-    def validate(self, attrs: Dict[str, Any]) -> Dict[str, str]:
+    def validate(self, attrs: dict[str, any]) -> dict[str, str]:
         data = super().validate(attrs)
 
         refresh = self.get_token(self.user)
