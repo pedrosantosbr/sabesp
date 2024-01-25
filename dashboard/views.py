@@ -19,7 +19,6 @@ def index(request):
 
     page_obj = paginator.get_page(page_number)
 
-    print(paginator)
     data = []
 
     for relatorio in page_obj:

@@ -13,6 +13,8 @@ class LeituraSerializer(serializers.Serializer):
     hidrometro = serializers.CharField(max_length=20)
 
     def to_representation(self, instance):
+        # join date and time in a new var
+
         return {
             "rgiPrincipal": instance.rgi_principal,
             "rgiAutonoma": instance.rgi_autonoma,

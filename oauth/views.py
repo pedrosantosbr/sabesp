@@ -12,33 +12,15 @@ from django.conf import settings
 from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.settings import api_settings
-from rest_framework_simplejwt.serializers import TokenObtainSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth.models import update_last_login
 
-
-class TokenOauth2Serializer(TokenObtainSerializer):
-    token_class = RefreshToken
-
-    def validate(self, attrs: dict[str, any]) -> dict[str, str]:
-        data = super().validate(attrs)
-
-        refresh = self.get_token(self.user)
-
-        data["refresh"] = str(refresh)
-        data["access"] = str(refresh.access_token)
-
-        if api_settings.UPDATE_LAST_LOGIN:
-            update_last_login(None, self.user)
-
-        return data
+from oauth.serializers import TokenOauth2Serializer
 
 
 class TokenViewBase(generics.GenericAPIView):
     permission_classes = ()
     authentication_classes = ()
 
-    serializer_class = None
+    serializer_class = TokenOauth2Serializer
     _serializer_class = ""
 
     www_authenticate_realm = "api"
@@ -63,7 +45,6 @@ class TokenViewBase(generics.GenericAPIView):
         )
 
     def post(self, request: Request, *args, **kwargs) -> Response:
-        print(request.data)
         client_id = request.data.get("client_id", None)
         client_secret = request.data.get("client_secret", None)
 

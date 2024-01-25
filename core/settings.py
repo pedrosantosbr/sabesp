@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "unidades",
     "dashboard",
     "oauth",
+    "alarmes",
 ]
 
 MIDDLEWARE = [
@@ -176,6 +177,7 @@ SIMPLE_JWT = {
     "JWT_ALLOW_REFRESH": True,
     "JWT_EXPIRATION_DELTA": timedelta(days=1),
     "AUTH_HEADER_TYPES": ("Bearer",),
+    "SERIALIZER_CLASS": "oauth.serializers.TokenOauth2Serializer",
 }
 
 APPEND_SLASH = False

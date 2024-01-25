@@ -7,8 +7,9 @@ from django.contrib import messages
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-
 from openpyxl import load_workbook
+from datetime import datetime
+from rest_framework.exceptions import ValidationError
 
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -32,12 +33,28 @@ def add_leitura(request):
 
             for i in range(5, sheet.max_row + 1):
                 row = sheet[i]
+
+                try:
+                    date_string = str(row[5].value).split(" ")[0]
+                    time_string = str(row[6].value)
+                    print(time_string)
+                except Exception:
+                    raise ValidationError(detail="Erro ao ler data e hora da planilha")
+
+                try:
+                    datetime_string = date_string + " " + time_string
+                    formatted_datetime = datetime.strptime(
+                        datetime_string, "%Y-%m-%d %H:%M:%S"
+                    )
+                except Exception:
+                    raise ValidationError(detail="Erro ao formatar data e hora")
+
                 Leitura.objects.create(
                     folha=fl,
                     rgi_principal=row[0].value,
                     rgi_autonoma=row[0].value,
                     status_valvula="",
-                    data_leitura=row[5].value,
+                    data_leitura=formatted_datetime,
                     leitura=row[4].value,
                     tipo=row[3].value.split("-")[1],
                     imovel=row[2].value,
