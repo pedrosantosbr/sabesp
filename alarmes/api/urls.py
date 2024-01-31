@@ -1,7 +1,7 @@
 from django.urls import path
-from alarmes.api.views import index
+from alarmes.api.views import AlarmeViewSet
 
 app_name = "alarmes"
 urlpatterns = [
-    path("", index, name="index"),
+    path("", AlarmeViewSet.as_view({"get": "list"}), name="alarmes"),
 ]
