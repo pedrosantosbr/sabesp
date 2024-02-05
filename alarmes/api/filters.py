@@ -17,6 +17,6 @@ class AlarmeFilter(filters.BaseFilterBackend):
         if not limit or limit == "":
             raise ValidationError(detail="O parâmetro limite é obrigatório.")
         if data:
-            queryset = queryset.filter(data=data)
+            queryset = queryset.filter(dataAlarme__gte=data)
 
         return queryset

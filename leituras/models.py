@@ -58,12 +58,16 @@ class Leitura(models.Model):
     class Meta:
         ordering = ["data_leitura"]
 
+    class StatusValvula(models.TextChoices):
+        ABERTA = "ABERTA"
+        FECHADA = "FECHADA"
+
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     folha = models.ForeignKey(Folha, on_delete=models.CASCADE)
 
     rgi_principal = models.CharField(max_length=100)
     rgi_autonoma = models.CharField(max_length=100)
-    status_valvula = models.CharField(max_length=100, null=True, blank=True)
+    status_valvula = models.CharField(max_length=100, default=StatusValvula.ABERTA)
     data_leitura = models.DateTimeField()
     leitura = models.IntegerField()
     tipo = models.CharField(max_length=100)
